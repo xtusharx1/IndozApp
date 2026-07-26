@@ -1,0 +1,4 @@
+class Constants {
+  static const appName = 'Indoz TV';
+  static const apiBase = 'https://api.example.com';
+}

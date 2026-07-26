@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme.dart';
+import './rashpal_profile_screen.dart';
 
 class TeamScreen extends StatelessWidget {
   const TeamScreen({Key? key}) : super(key: key);
@@ -56,7 +57,7 @@ class TeamScreen extends StatelessWidget {
                         'The talented people behind Indoz TV',
                       ),
                       const SizedBox(height: 32),
-                      _buildLeadershipSection(),
+                      _buildLeadershipSection(context),
                       const SizedBox(height: 40),
                       _buildJournalistsSection(),
                       const SizedBox(height: 40),
@@ -133,7 +134,7 @@ class TeamScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLeadershipSection() {
+  Widget _buildLeadershipSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -153,7 +154,15 @@ class TeamScreen extends StatelessWidget {
           color: const Color(0xFF1e3a8a),
           email: 'rashpal@indoz.tv',
           phone: '+61 411 036 597',
-          imageUrl: null, // Add image URL here
+          imageUrl: 'https://indoz.tv/wp-content/uploads/2026/06/5.png',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const RashpalProfileScreen(),
+              ),
+            );
+          },
         ),
         const SizedBox(height: 16),
         _buildTeamMemberRow(
@@ -163,7 +172,7 @@ class TeamScreen extends StatelessWidget {
           color: const Color(0xFFdc2626),
           email: 'satpalkooner@indoz.tv',
           phone: '+61 411 036 598',
-          imageUrl: null, // Add image URL here
+          imageUrl: 'https://indoz.tv/wp-content/uploads/2026/06/6.png',
         ),
       ],
     );
@@ -189,7 +198,7 @@ class TeamScreen extends StatelessWidget {
           color: const Color(0xFF1e40af),
           email: 'daljitsingh@indoz.tv',
           phone: '+61 434 289 317',
-          imageUrl: null, // Add image URL here
+          imageUrl: 'https://indoz.tv/wp-content/uploads/2026/06/7.png',
         ),
         const SizedBox(height: 16),
         _buildTeamMemberRow(
@@ -199,7 +208,7 @@ class TeamScreen extends StatelessWidget {
           color: const Color(0xFF0369a1),
           email: 'harjit@indoz.tv',
           phone: '+61 XXX XXX XXX',
-          imageUrl: null, // Add image URL here
+          imageUrl: 'https://indoz.tv/wp-content/uploads/2026/06/8.png',
         ),
       ],
     );
@@ -225,7 +234,7 @@ class TeamScreen extends StatelessWidget {
           color: const Color(0xFF9333ea),
           email: 'lovelykhattri@indoz.tv',
           phone: '+61 406 315 400',
-          imageUrl: null, // Add image URL here
+          imageUrl: 'https://indoz.tv/wp-content/uploads/2026/06/2.png',
         ),
         const SizedBox(height: 16),
         _buildTeamMemberRow(
@@ -248,28 +257,28 @@ class TeamScreen extends StatelessWidget {
         'role': 'Media Personality',
         'description': 'Popular TV and radio host.',
         'color': const Color(0xFF16a34a),
-        'imageUrl': null,
+        'imageUrl': 'https://indoz.tv/wp-content/uploads/2026/05/6.png',
       },
       {
         'name': 'Reena Augustine',
         'role': 'Media Personality',
         'description': 'Community advocate and presenter.',
         'color': const Color(0xFFdb2777),
-        'imageUrl': null,
+        'imageUrl': 'https://indoz.tv/wp-content/uploads/2026/06/3.png',
       },
       {
         'name': 'Sharmin Thomas',
         'role': 'Media Personality',
         'description': 'Dynamic media host.',
         'color': const Color(0xFFea580c),
-        'imageUrl': null,
+        'imageUrl': 'https://indoz.tv/wp-content/uploads/2026/06/4.png',
       },
       {
         'name': 'Varun Basi',
-        'role': 'Overseas Correspondent',
-        'description': 'International news reporter.',
+        'role': 'Indoz Tv Australia',
+        'description': 'Technical Head and Professional Video Editor',
         'color': const Color(0xFF7c3aed),
-        'imageUrl': null,
+        'imageUrl': 'https://indoz.tv/wp-content/uploads/2026/06/Untitled-design.png',
       },
       {
         'name': 'Naser Ali',
@@ -299,6 +308,13 @@ class TeamScreen extends StatelessWidget {
         'color': const Color(0xFF0891b2),
         'imageUrl': null,
       },
+      {
+        'name': 'Vibha Das-Singh',
+        'role': 'Indoz TV Australia',
+        'description': 'Host Multiple Cultural Events',
+        'color': const Color(0xFFe11d48),
+        'imageUrl': 'https://indoz.tv/wp-content/uploads/2026/06/vivas.png',
+      },
     ];
 
     return Column(
@@ -313,25 +329,19 @@ class TeamScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            return Wrap(
-              spacing: 16,
-              runSpacing: 16,
-              children: personalities.map((person) {
-                return SizedBox(
-                  width: (constraints.maxWidth - 16) / 2,
-                  child: _buildMediaPersonalityCard(
-                    name: person['name'] as String,
-                    role: person['role'] as String,
-                    description: person['description'] as String,
-                    color: person['color'] as Color,
-                    imageUrl: person['imageUrl'] as String?,
-                  ),
-                );
-              }).toList(),
+        Column(
+          children: personalities.map((person) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: _buildTeamMemberRow(
+                name: person['name'] as String,
+                role: person['role'] as String,
+                description: person['description'] as String,
+                color: person['color'] as Color,
+                imageUrl: person['imageUrl'] as String?,
+              ),
             );
-          },
+          }).toList(),
         ),
       ],
     );
@@ -458,8 +468,9 @@ class TeamScreen extends StatelessWidget {
     String? email,
     String? phone,
     String? imageUrl,
+    VoidCallback? onTap,
   }) {
-    return Container(
+    final rowContent = Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.05),
@@ -549,37 +560,38 @@ class TeamScreen extends StatelessWidget {
                     color: Colors.black.withOpacity(0.7),
                     height: 1.4,
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
                 if (email != null || phone != null) ...[
                   const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 16,
-                    runSpacing: 6,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (email != null)
                         Row(
-                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.email_rounded, size: 13, color: color),
                             const SizedBox(width: 6),
-                            Flexible(
-                              child: Text(
-                                email,
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w500,
+                            Expanded(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  email,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
                         ),
+                      if (email != null && phone != null)
+                        const SizedBox(height: 6),
                       if (phone != null)
                         Row(
-                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.phone_rounded, size: 13, color: color),
                             const SizedBox(width: 6),
@@ -602,6 +614,14 @@ class TeamScreen extends StatelessWidget {
         ],
       ),
     );
+
+    if (onTap != null) {
+      return GestureDetector(
+        onTap: onTap,
+        child: rowContent,
+      );
+    }
+    return rowContent;
   }
 
   Widget _buildAvatarFallback(String name, Color color) {

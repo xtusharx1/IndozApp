@@ -503,192 +503,171 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              // Profile Card - uses Flexible to shrink if needed
-              Flexible(
-                flex: 4,
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.25),
-                      width: 1.5,
+              // Profile Card - dynamic height based on content
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 24, 
+                  vertical: constraints.maxHeight > 600 ? 24 : 20,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.12),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.25),
+                    width: 1.5,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Profile Avatar with gradient
-                      Container(
-                        width: constraints.maxHeight > 600 ? 90 : 70,
-                        height: constraints.maxHeight > 600 ? 90 : 70,
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Colors.white24, Colors.white12],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.3),
-                            width: 2.5,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.white.withOpacity(0.2),
-                              blurRadius: 20,
-                              offset: const Offset(0, 8),
-                            ),
-                          ],
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Profile Avatar with gradient
+                    Container(
+                      width: constraints.maxHeight > 600 ? 90 : 70,
+                      height: constraints.maxHeight > 600 ? 90 : 70,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Colors.white24, Colors.white12],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                         ),
-                        child: Icon(
-                          Icons.person_rounded,
-                          color: Colors.white,
-                          size: constraints.maxHeight > 600 ? 45 : 35,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.3),
+                          width: 2.5,
                         ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: constraints.maxHeight > 600 ? 20 : 14),
+                      child: Icon(
+                        Icons.person_rounded,
+                        color: Colors.white,
+                        size: constraints.maxHeight > 600 ? 45 : 35,
+                      ),
+                    ),
+                    SizedBox(height: constraints.maxHeight > 600 ? 20 : 14),
 
-                      // User Name
-                      if (_user != null) ...[
-                        Text(
-                          _user!['name'] ?? 'User',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: constraints.maxHeight > 600 ? 22 : 18,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
-                          ),
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                    // User Name
+                    if (_user != null) ...[
+                      Text(
+                        _user!['name'] ?? 'User',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: constraints.maxHeight > 600 ? 22 : 18,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          _user!['email'] ?? 'No email',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
-                            fontSize: constraints.maxHeight > 600 ? 14 : 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        _user!['email'] ?? 'No email',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.8),
+                          fontSize: constraints.maxHeight > 600 ? 14 : 12,
+                          fontWeight: FontWeight.w400,
                         ),
-                      ],
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
-                  ),
+                  ],
                 ),
               ),
 
               SizedBox(height: constraints.maxHeight > 600 ? 20 : 12),
 
-              // Quick Actions Section - uses Flexible to shrink if needed
-              Flexible(
-                flex: 6,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.15),
-                      width: 1,
+              // Quick Actions Section - dynamic height based on content
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.15),
+                    width: 1,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Quick Actions',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Quick Actions',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                        ),
+                    SizedBox(height: constraints.maxHeight > 600 ? 14 : 10),
+
+                    _buildMenuButton(
+                      icon: Icons.info_rounded,
+                      label: 'About Us',
+                      subtitle: 'Learn more about Indoz TV',
+                      color: const Color(0xFF667eea),
+                      compact: constraints.maxHeight <= 600,
+                      onPressed: () async {
+                        final about = _about ?? await ApiService().getAbout();
+                        if (!mounted) return;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => AboutScreen(
+                              orgName: about['org_name'] as String? ?? 'About Us',
+                              description: about['desc'] as String? ?? 'No details available.',
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+
+                    SizedBox(height: constraints.maxHeight > 600 ? 10 : 8),
+
+                    _buildMenuButton(
+                      icon: Icons.people_rounded,
+                      label: 'Our Team',
+                      subtitle: 'Meet the people behind Indoz TV',
+                      color: const Color(0xFFf5576c),
+                      compact: constraints.maxHeight <= 600,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const TeamScreen(),
+                          ),
+                        );
+                      },
+                    ),
+
+                    SizedBox(height: constraints.maxHeight > 600 ? 10 : 8),
+
+                    Builder(
+                      builder: (buttonContext) => _buildMenuButton(
+                        icon: Icons.ios_share_rounded,
+                        label: 'Share App',
+                        subtitle: 'Invite friends to download our app',
+                        color: const Color(0xFF4CAF50),
+                        compact: constraints.maxHeight <= 600,
+                        onPressed: () => _shareApp(buttonContext),
                       ),
-                      SizedBox(height: constraints.maxHeight > 600 ? 14 : 10),
-
-                      Flexible(
-                        child: _buildMenuButton(
-                          icon: Icons.info_rounded,
-                          label: 'About Us',
-                          subtitle: 'Learn more about Indoz TV',
-                          color: const Color(0xFF667eea),
-                          compact: constraints.maxHeight <= 600,
-                          onPressed: () async {
-                            final about = _about ?? await ApiService().getAbout();
-                            if (!mounted) return;
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => AboutScreen(
-                                  orgName: about['org_name'] as String? ?? 'About Us',
-                                  description: about['desc'] as String? ?? 'No details available.',
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-
-                      SizedBox(height: constraints.maxHeight > 600 ? 10 : 8),
-
-                      Flexible(
-                        child: _buildMenuButton(
-                          icon: Icons.people_rounded,
-                          label: 'Our Team',
-                          subtitle: 'Meet the people behind Indoz TV',
-                          color: const Color(0xFFf5576c),
-                          compact: constraints.maxHeight <= 600,
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const TeamScreen(),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-
-                      SizedBox(height: constraints.maxHeight > 600 ? 10 : 8),
-
-                      Flexible(
-                        child: _buildMenuButton(
-                          icon: Icons.language_rounded,
-                          label: 'Follow Us',
-                          subtitle: 'Connect with us on social media',
-                          color: const Color(0xFF9C27B0),
-                          compact: constraints.maxHeight <= 600,
-                          onPressed: _showSocialMediaSheet,
-                        ),
-                      ),
-
-                      SizedBox(height: constraints.maxHeight > 600 ? 10 : 8),
-
-                      Flexible(
-                        child: _buildMenuButton(
-                          icon: Icons.ios_share_rounded,
-                          label: 'Share App',
-                          subtitle: 'Invite friends to download our app',
-                          color: const Color(0xFF4CAF50),
-                          compact: constraints.maxHeight <= 600,
-                          onPressed: _shareApp,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
 
@@ -979,7 +958,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onTap: onPressed,
         borderRadius: BorderRadius.circular(14),
         child: Container(
-          padding: EdgeInsets.all(compact ? 12 : 14),
+          padding: EdgeInsets.symmetric(
+            horizontal: compact ? 12 : 14,
+            vertical: compact ? 14 : 16,
+          ),
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.08),
             borderRadius: BorderRadius.circular(14),
@@ -1020,15 +1002,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: compact ? 2 : 3),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.7),
-                        fontSize: compact ? 11 : 12,
-                        fontWeight: FontWeight.w400,
+                    Flexible(
+                      child: Text(
+                        subtitle,
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: compact ? 11 : 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -1156,11 +1140,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Future<void> _shareApp() async {
+  Future<void> _shareApp(BuildContext shareContext) async {
     const message = '🎬 Watch IndoZ TV with me!\n\nAndroid: https://play.google.com/store/apps/details?id=com.indoz.app\n\niOS: https://apps.apple.com/in/app/indoz-tv/id1492210794';
 
     try {
-      await Share.share(message, subject: '');
+      final box = shareContext.findRenderObject() as RenderBox?;
+      final sharePositionOrigin = box != null
+          ? box.localToGlobal(Offset.zero) & box.size
+          : null;
+
+      await Share.share(
+        message,
+        subject: 'IndoZ TV App',
+        sharePositionOrigin: sharePositionOrigin,
+      );
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

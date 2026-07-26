@@ -13,7 +13,7 @@ class UserUpdateResult {
 class UserService {
   static Future<Map<String, dynamic>?> getById(String id) async {
     try {
-      final url = Uri.parse('http://ec2-15-134-208-12.ap-southeast-2.compute.amazonaws.com:3000/api/user/$id');
+      final url = Uri.parse('http://ec2-13-238-255-87.ap-southeast-2.compute.amazonaws.com:3000/api/user/$id');
       final resp = await http.get(url);
       if (resp.statusCode == 200) {
         final data = json.decode(resp.body) as Map<String, dynamic>;
