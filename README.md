@@ -1,27 +1,96 @@
-# android_app
+# Indoz TV
 
-A new Flutter project.
+## Project Overview
 
-## Environment Setup
+Indoz TV is a cross-platform mobile application designed to deliver live TV streaming, news articles, studio booking services, and interactive community content. The application is built using Flutter for seamless performance across Android and iOS platforms.
 
-Before running the application, copy the example constants template file to `lib/src/utils/constants.dart`:
+## Features
+
+- **Live Streaming**: Stream live broadcast television and media content.
+- **News & Articles**: Browse featured news stories and article detail views.
+- **Studio Hire Services**: Submit inquiries and book studio space directly within the app.
+- **Advertising Inquiries**: Request custom ad placements and commercial quotes.
+- **Team & Member Showcase**: Explore team member profiles and organizational information.
+- **User Management**: User registration, sign-in authentication, and profile editing.
+
+## Prerequisites
+
+- Flutter SDK
+- Dart SDK
+- Android Studio / VS Code
+- Xcode (for iOS)
+- CocoaPods (for iOS)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/xtusharx1/IndozApp.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd android_app
+   ```
+
+3. Set up environment configuration:
+   ```bash
+   cp lib/src/utils/constants.dart.example lib/src/utils/constants.dart
+   ```
+
+4. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+
+## Running the App
+
+### Android
 
 ```bash
-cp lib/src/utils/constants.dart.example lib/src/utils/constants.dart
+flutter run
 ```
 
-Ensure you update `lib/src/utils/constants.dart` with your local environment values (API URLs, headers, secret keys).
+### iOS
 
-## Getting Started
+```bash
+cd ios
+pod install
+cd ..
+flutter run
+```
 
-This project is a starting point for a Flutter application.
+## Building
 
-A few resources to get you started if this is your first Flutter project:
+### Android APK
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter build apk --release
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Android App Bundle
 
+```bash
+flutter build appbundle
+```
+
+### iOS
+
+```bash
+flutter build ipa
+```
+
+## Project Structure
+
+- **lib/**: Contains the Flutter application source code including screens, models, services, themes, and utility classes.
+- **assets/**: Contains static assets such as images, logos, and icon resources used in the application.
+- **android/**: Native Android project files, Gradle configuration, and build scripts.
+- **ios/**: Native iOS project files, Xcode configuration, and CocoaPods setup.
+
+## Dependencies
+
+Dependencies are managed using `pubspec.yaml`.
+
+## License
+
+Not specified
